@@ -24,5 +24,5 @@ addEventListener("load", () => {
 
     console.log('load');
     const observer = new MutationObserver(mutationCallback);
-    observer.observe(document, { childList: true, subtree: true, attributes: false });
+    observer.observe(shortContainer, { childList: true, subtree: true, attributes: false });
 })
