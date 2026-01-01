@@ -1,0 +1,20 @@
+{
+    "manifest_version": 3,
+    "name": "Scroll Hell BLOCK",
+    "description": "Scroll Hell BLOCK",
+    "version": "0.1",
+    "icons": {
+        "128": "images/icon-128.png"
+    },
+    "content_scripts": [
+        {
+            "js": [
+                "scripts/content.js"
+            ],
+            "matches": [
+                "https://www.youtube.com/*"
+            ]
+        }
+    ],
+    "permissions": ["scripting"]
+}
