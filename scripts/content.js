@@ -1,28 +1,41 @@
-const mutationCallback = (mutationList, observer) => {
-    const reels = document.querySelectorAll('.reel-video-in-sequence-new');
+const mutationCallback = (mutationList) => {
+  for (const mutation of mutationList) {
+    if (mutation.type !== "childList") continue;
 
-    for (const reel of reels) {
-        if (!reel) continue;
+    const targets = mutation.target.querySelectorAll(
+      ".reel-video-in-sequence-new"
+    );
 
-        if (reel.attributes && reel.attributes['id'].value === '0') continue;
+    targets.forEach((target) => {
+      if (target.id === "0") return;
+      target.remove();
+    });
+  }
+  const navigation = document.querySelector(
+    ".navigation-container .style-scope .ytd-shorts"
+  );
 
-        reel.remove();
-    }
+  if (!navigation) return;
 
-    document
-        .querySelector('.navigation-container .style-scope .ytd-shorts')
-        .remove();
-}
+  navigation.remove();
+};
 
 addEventListener("load", () => {
-    const shortContainer = document.getElementById('shorts-container');
+  const bodyContainer = document.body;
+  if (!bodyContainer) {
+    console.log("No body container found");
+    return;
+  }
 
-    if (!shortContainer) {
-        console.log('No shorts container found');
-        return;
-    }
+  console.log(
+    "DOMContentLoaded - Setting up MutationObserver for shorts container"
+  );
 
-    console.log('load');
-    const observer = new MutationObserver(mutationCallback);
-    observer.observe(shortContainer, { childList: true, subtree: true, attributes: false });
-})
+  const observer = new MutationObserver(mutationCallback);
+
+  observer.observe(bodyContainer, {
+    childList: true,
+    subtree: true,
+    attributes: false,
+  });
+});
